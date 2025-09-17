@@ -29,45 +29,45 @@ const m = createModule()
   .bind("module.toValue.array", toValue([1, 2, 3]))
   .bind(
     "module.toFactory.string",
-    toFactory(() => "str")
+    toFactory(() => "str"),
   )
   .bind(
     "module.toFactory.number",
-    toFactory(() => 42)
+    toFactory(() => 42),
   )
   .bind(
     "module.toFactory.bool",
-    toFactory(() => true)
+    toFactory(() => true),
   )
   .bind(
     "module.toFactory.resolve.string",
-    toFactory((r) => r("module.toFactory.string"))
+    toFactory((r) => r("module.toFactory.string")),
   )
   .bind(
     "module.toFactory.resolve.number",
-    toFactory((r) => r("module.toFactory.number"))
+    toFactory((r) => r("module.toFactory.number")),
   )
   .bind(
     "module.toHoc.withoutDeps",
-    toHigherOrderFunction(HigherOrderFunctionWithoutDependency)
+    toHigherOrderFunction(HigherOrderFunctionWithoutDependency),
   )
   .bind(
     "module.toHoc.withDepsArray",
     toHigherOrderFunction(HigherOrderFunctionWithDependencies, [
       "module.toValue.string",
-    ])
+    ]),
   )
   .bind(
     "module.toHoc.withDepsArray.unbound",
     // @ts-expect-error dependency is not binded
-    toHigherOrderFunction(HigherOrderFunctionWithDependencies, ["unbound"])
+    toHigherOrderFunction(HigherOrderFunctionWithDependencies, ["unbound"]),
   )
   .bind(
     "module.toHoc.withDepsObject",
     toHigherOrderFunction(HigherOrderFunctionWithDependencyObject, {
       foo: "module.toValue.string",
       bar: "module.toValue.number",
-    })
+    }),
   )
   .bind(
     "module.toHoc.withDepsObject.unbound",
@@ -75,7 +75,7 @@ const m = createModule()
     toHigherOrderFunction(HigherOrderFunctionWithDependencyObject, {
       foo: "module.toValue.string",
       bar: "unbound",
-    })
+    }),
   )
   .bind("module.toClass", toClass(MyServiceClassWithoutDependencies));
 
@@ -97,18 +97,18 @@ expectTypeOf(m.get("module.toFactory.resolve.number")).toBeNumber();
 
 // module.toHoc
 expectTypeOf(
-  m.get("module.toHoc.withoutDeps")
+  m.get("module.toHoc.withoutDeps"),
 ).toEqualTypeOf<ServiceWithoutDependencyInterface>();
 expectTypeOf(
-  m.get("module.toHoc.withDepsArray")
+  m.get("module.toHoc.withDepsArray"),
 ).toEqualTypeOf<MyServiceInterface>();
 expectTypeOf(
-  m.get("module.toHoc.withDepsObject")
+  m.get("module.toHoc.withDepsObject"),
 ).toEqualTypeOf<MyServiceInterface>();
 
 // module.toClass
 expectTypeOf(
-  m.get("module.toClass")
+  m.get("module.toClass"),
 ).toEqualTypeOf<MyServiceClassWithoutDependencies>();
 
 const c = createContainer()
@@ -119,19 +119,19 @@ const c = createContainer()
   .bind("toValue.array", toValue([1, 2, 3]))
   .bind(
     "toHoc.string",
-    toHigherOrderFunction(() => "example")
+    toHigherOrderFunction(() => "example"),
   )
   .bind(
     "toHoc.number",
-    toHigherOrderFunction(() => 42)
+    toHigherOrderFunction(() => 42),
   )
   .bind(
     "toHoc.withDeps",
-    toHigherOrderFunction((name) => ({ name }), ["toValue.string"])
+    toHigherOrderFunction((name) => ({ name }), ["toValue.string"]),
   )
   .bind(
     "factory",
-    toFactory(() => "factory example")
+    toFactory(() => "factory example"),
   )
   .load("m", m);
 

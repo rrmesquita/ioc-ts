@@ -67,7 +67,7 @@ const toHigherOrderFunction = <TValue, TBindings>(
 
 // exact same problem as toHoc
 const toClass = <TValue, TBindings>(
-  AnyClass: new (...args: unknown[]) => TValue,
+  AnyClass: new (...args: any[]) => TValue,
   dependencies?: DependencyArray<TBindings> | DependencyObject<TBindings>,
   scope: Scope = "singleton",
 ): BindingDefinition<TValue, TBindings> => {

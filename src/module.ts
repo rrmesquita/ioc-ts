@@ -6,7 +6,7 @@ export class Module<TBindings> {
 
   public bind<TKey extends DependencyKey, TImpl>(
     key: TKey,
-    builder: BindingDefinition<TImpl, TBindings>
+    builder: BindingDefinition<TImpl, TBindings>,
   ) {
     // @ts-expect-error - key is yet to be binded
     this.bindings.set(key, builder);
@@ -25,6 +25,6 @@ export class Module<TBindings> {
   }
 }
 
-export function createModule() {
-  return new Module();
+export function createModule<TBindings>() {
+  return new Module<TBindings>();
 }

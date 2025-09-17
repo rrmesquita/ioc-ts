@@ -1,4 +1,4 @@
-import { DependencyKey } from "../..";
+import { DependencyKey } from "../../src";
 
 export const DI: {
   [key: string]: DependencyKey;
